@@ -63,8 +63,8 @@ def get_dacl(split):
 DatasetCatalog.register('dacl10k_train', lambda: get_dacl('train'))
 DatasetCatalog.register('dacl10k_val', lambda: get_dacl('validation'))
 # DatasetCatalog.register('dacl10l_test',lambda: get_dacl('test'))
-MetadataCatalog.get('dacl10k_train').dataset_root='./dacl10k_v2_devphase'
-MetadataCatalog.get('dacl10k_val').dataset_root='./dacl10k_v2_devphase'
+MetadataCatalog.get('dacl10k_train').dataset_root='./dacl10k_v2_512_devphase'
+MetadataCatalog.get('dacl10k_val').dataset_root='./dacl10k_v2_512_devphase'
 MetadataCatalog.get('dacl10k_val').evaluator_type='coco'
 MetadataCatalog.get('dacl10k_val').thing_classes=TARGET_LIST
 # MetadataCatalog.get('dacl10k_test').dataset_root='./dacl10k_v2_devphase'
