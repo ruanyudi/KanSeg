@@ -66,6 +66,7 @@ class MaskDINODecoder(nn.Module):
             query_dim: int = 4,
             dec_layer_share: bool = False,
             semantic_ce_loss: bool = False,
+            use_KanSeg: bool = False
     ):
         """
         NOTE: this interface is experimental.
@@ -160,6 +161,8 @@ class MaskDINODecoder(nn.Module):
         self.bbox_embed = nn.ModuleList(box_embed_layerlist)
         self.decoder.bbox_embed = self.bbox_embed
 
+        self.use_KanSeg = use_KanSeg
+
 
     @classmethod
     def from_config(cls, cfg, in_channels, mask_classification):
@@ -185,7 +188,7 @@ class MaskDINODecoder(nn.Module):
         ret["learn_tgt"] = cfg.MODEL.MaskDINO.LEARN_TGT
         ret["total_num_feature_levels"] = cfg.MODEL.SEM_SEG_HEAD.TOTAL_NUM_FEATURE_LEVELS
         ret["semantic_ce_loss"] = cfg.MODEL.MaskDINO.TEST.SEMANTIC_ON and cfg.MODEL.MaskDINO.SEMANTIC_CE_LOSS and ~cfg.MODEL.MaskDINO.TEST.PANOPTIC_ON
-
+        ret["use_KanSeg"] = cfg.MODEL.USE_KANSEG
         return ret
 
     def prepare_for_dn(self, targets, tgt, refpoint_emb, batch_size):
@@ -506,9 +509,16 @@ class MaskDINODecoder(nn.Module):
         outputs_class = self.class_embed(decoder_output)
         outputs_mask = None
         if pred_mask:
+            # if self.use_KanSeg:
+            #     print('use_KanSeg')
+            # else:
+            #     print('unuse_KanSeg')
             mask_embed = self.mask_embed(decoder_output)
             outputs_mask = torch.einsum("bqc,bchw->bqhw", mask_embed, mask_features)
-
+            # print(f'outputs_mask: {outputs_mask.shape}')
+            # print(f'mask_embed: {mask_embed.shape}')
+            # print(f'mask_features: {mask_features.shape}')
+            # exit(0)
         return outputs_class, outputs_mask
 
     @torch.jit.unused

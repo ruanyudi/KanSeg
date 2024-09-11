@@ -144,5 +144,6 @@ def add_maskdino_config(cfg):
     cfg.MODEL.SWIN.PATCH_NORM = True
     cfg.MODEL.SWIN.OUT_FEATURES = ["res2", "res3", "res4", "res5"]
     cfg.MODEL.SWIN.USE_CHECKPOINT = False
+    cfg.MODEL.USE_KANSEG = True
 
     cfg.Default_loading=True  # a bug in my d2. resume use this; if first time ResNet load, set it false

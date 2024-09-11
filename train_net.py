@@ -12,7 +12,7 @@ try:
     warnings.filterwarnings('ignore', category=ShapelyDeprecationWarning)
 except:
     pass
-
+import dacl10k_dataset
 import copy
 import itertools
 import logging
