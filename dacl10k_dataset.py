@@ -16,7 +16,7 @@ def polygon_to_bbox(polygon):
     y_min = np.min(polygon_np[:, 1])
     x_max = np.max(polygon_np[:, 0])
     y_max = np.max(polygon_np[:, 1])
-    return [x_min, y_min, x_max, y_max]
+    return [x_min, y_min, x_max, y_max] 
 
 
 def get_dacl(split):
@@ -25,6 +25,7 @@ def get_dacl(split):
         annotations_filepath=os.path.join(MetadataCatalog.get('dacl10k_train').dataset_root,f'annotations/{split}')
         images_filepath = os.path.join(MetadataCatalog.get('dacl10k_train').dataset_root,f'images/{split}')
         annotations_files=os.listdir(annotations_filepath)
+        annotations_files.remove('.keep')
         for annotations_file in annotations_files:
             ret={}
             annotation = json.load(open(os.path.join(annotations_filepath,annotations_file),'r'))
