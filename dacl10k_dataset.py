@@ -9,7 +9,7 @@ from tqdm import tqdm
 TARGET_LIST = ['Crack', 'ACrack', 'Wetspot', 'Efflorescence', 'Rust', 'Rockpocket', 'Hollowareas', 'Cavity',
                'Spalling', 'Graffiti', 'Weathering', 'Restformwork', 'ExposedRebars',
                'Bearing', 'EJoint', 'Drainage', 'PEquipment', 'JTape', 'WConccor']
-
+    
 def polygon_to_bbox(polygon):
     polygon_np = np.array(polygon)
     x_min = np.min(polygon_np[:, 0])
