@@ -97,10 +97,12 @@ if __name__ == '__main__':
         for i in range(pred_masks.shape[0]):
             ann = {"label":TARGET_LIST[int(pred_classes[i])]}
             pred_mask = pred_masks[i].to(dtype=torch.uint8).cpu().numpy()
-            ann["points"]=mask2ann(pred_mask)
+            points=mask2ann(pred_mask)
             ann["shape_type"]="polygon"
-            anns.append(ann)
+            for point in points:
+                ann['points']=point
+                anns.append(ann)
         json_file['shapes']=anns
         # print(len(anns))
         json.dump(json_file,open(os.path.join(OUTPUT_PATH,f"{file.split('/')[-1].split('.')[-2]}.json"),'w'))
-    jsons2jsonl('./test_output','submission.json')
+    jsons2jsonl('./test_output','submission.jsonl')
