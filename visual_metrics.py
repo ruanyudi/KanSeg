@@ -2,7 +2,7 @@ import argparse
 import json
 import matplotlib.pyplot as plt
 
-METRICS=['total_loss','segm/AP','bbox/AP']
+METRICS=['total_loss','segm/AP','bbox/AP','segm/AP50','bbox/AP50']
 
 def get_parser():
     parser = argparse.ArgumentParser(description="maskdino demo for builtin configs")
